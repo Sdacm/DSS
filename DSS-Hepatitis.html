@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<style>
+
+		body {
+			background: linear-gradient(to left, #66BBFF, #B3E6FF);
+			text-align: center;
+		}
+
+		h4 {
+			font-family: "Trebuchet MS", Helvetica, sans-serif;
+			font-size: 18px;
+			font-weight: 300;
+			font-weight: bold;
+			letter-spacing: 2px;
+			text-align: center;
+			position: relative;
+		}
+
+		.introduction {
+			font-family: "Trebuchet MS", Helvetica, sans-serif;
+			background-color: transparent;
+			box-sizing: border-box;
+			padding: 10px;
+			text-align: center;
+			width: 100%;
+			position: relative;
+			top: 10px;
+		}
+
+		.radioContainer {
+			display: inline-block;
+			position: relative;
+			cursor: pointer;
+			font-family: "Trebuchet MS", Helvetica, sans-serif;;
+			font-size: 18px;
+			user-select: none;
+			padding-left: 30px;
+		}
+
+		.radioContainer input {
+			display: none;
+		}
+
+		.radioContainer .circle {
+			display: inline-block;
+			width: 25px;
+			height: 25px;
+			background-color: silver;
+			position: absolute;
+			left: 0;
+			top: 0;
+			border-radius: 50%;
+		}
+
+		.radioContainer:hover .circle {
+			background-color: gray;
+		}
+
+		.radioContainer input:checked + .circle {
+			background-color: #2196FC;
+		}
+
+		.radioContainer input:checked + .circle:after {
+			content: "";
+			height: 10px;
+			width: 10px;
+			position: absolute;
+			background-color: white;
+			border-radius: 50%;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%,-50%);
+		}
+
+		select {
+			border: 50px;
+			font-family: "Trebuchet MS", Helvetica, sans-serif;
+			font-size: 18px;
+			color: #000;
+		}
+
+		.button {
+			background-color: #2196FC;
+			border-color: light blue;
+			color: white;
+			padding: 15px 15px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 18px;
+			font-family: "Trebuchet MS", Helvetica, sans-serif;
+			position: relative;
+		}
+
+		.button:hover {
+			cursor: pointer;
+		}
+
+		footer {
+			background-color: transparent;
+			font-family: "Trebuchet MS", Helvetica, sans-serif;
+			text-align: center;
+			margin-top: 30px;
+		}
+
+	</style>
+
+	<title>Hepatitis Identifier</title>
+
+</head>
+
+<body>
+
+	<div class="introduction">
+		<h1>Hepatitis Identifier</h1>
+		<p>This web page uses a Decision Support System that attempts to identify if a person has or not Hepatitis.</p>
+		<p>Please answer to every question correctly and don't leave any in blank in order to get the best result.</p>
+		<p><span style="font-size: 12px">The results are not guaranteed to be 100% accurate. Please contact your Doctor or Pharmaceutical to inform about your symptoms and receive the adequate treatment. </br>(refresh the page before submiting a new form)</span></p>
+	</div>
+
+	<!-- Age -->
+	<div><h4>1) Age:</h4>
+		<select id="age" onchange="getAge();">
+			<option value="?">Select your age:</option>
+			<option value="1-20"> 1-20</option>
+			<option value="21-40"> 21-40</option>
+			<option value="41-60"> 41-60</option>
+			<option value="61-80"> 61-80</option>
+			<option value="81-100"> 81-100</option>
+		</select>  
+	</div>
+
+	<!-- Sex -->
+	<div><h4>2) Sex:</h4>
+		<label class="radioContainer">&nbsp
+		<input type="radio" name="sex" value="male" onclick="getSex();"/> Male&nbsp&nbsp&nbsp&nbsp&nbsp
+		<span class="circle"></span></label> 
+
+		<label class="radioContainer">&nbsp
+		<input type="radio" name="sex" value="female" onclick="getSex();"/> Female&nbsp&nbsp&nbsp&nbsp&nbsp
+		<span class="circle"></span></label> 
+	</div>
+
+	<!-- Big -->
+	<div><h4>3) Tested NegativeR_BIG:</h4>
+		<label class="radioContainer">&nbsp
+		<input type="radio" name="big" value="yes" onclick="getBig();"/> Yes&nbsp&nbsp&nbsp&nbsp&nbsp
+		<span class="circle"></span></label> 
+
+		<label class="radioContainer">&nbsp
+		<input type="radio" name="big" value="no" onclick="getBig();"/> No&nbsp&nbsp&nbsp&nbsp&nbsp
+		<span class="circle"></span></label> 
+	</div>
+
+	<!-- Firm -->
+	<div><h4>4) Tested NegativeR_FIRM:</h4>
+		<label class="radioContainer">&nbsp
+		<input type="radio" name="firm" value="yes" onclick="getFirm();"/> Yes&nbsp&nbsp&nbsp&nbsp&nbsp
+		<span class="circle"></span></label> 
+
+		<label class="radioContainer">&nbsp
+		<input type="radio" name="firm" value="no" onclick="getFirm();"/> No&nbsp&nbsp&nbsp&nbsp&nbsp
+		<span class="circle"></span></label> 
+	</div>
+
+	<!-- Spiders -->
+	<div><h4>5) Spider angioma:</h4>
+		<label class="radioContainer">&nbsp
+		<input type="radio" name="spiders" value="yes" onclick="getSpiders();"/> Yes&nbsp&nbsp&nbsp&nbsp&nbsp
+		<span class="circle"></span></label> 
+
+		<label class="radioContainer">&nbsp
+		<input type="radio" name="spiders" value="no" onclick="getSpiders();"/> No&nbsp&nbsp&nbsp&nbsp&nbsp
+		<span class="circle"></span></label> 
+	</div>
+
+	<!-- Ascites -->
+	<div><h4>6) Ascites:</h4>
+		<label class="radioContainer">&nbsp
+		<input type="radio" name="ascites" value="yes" onclick="getAscites();"/> Yes&nbsp&nbsp&nbsp&nbsp&nbsp
+		<span class="circle"></span></label> 
+
+		<label class="radioContainer">&nbsp
+		<input type="radio" name="ascites" value="no" onclick="getAscites();"/> No&nbsp&nbsp&nbsp&nbsp&nbsp
+		<span class="circle"></span></label> 
+	</div>
+
+	<!-- Sgot -->
+	<div><h4>7) SGOT ratio value:</h4>
+		<label class="radioContainer">&nbsp
+		<input type="radio" name="sgot" value="<= 101" onclick="getSgot();"/> <= 101&nbsp&nbsp&nbsp&nbsp&nbsp
+		<span class="circle"></span></label> 
+
+		<label class="radioContainer">&nbsp
+		<input type="radio" name="sgot" value="> 101" onclick="getSgot();"/> > 101&nbsp&nbsp&nbsp&nbsp&nbsp
+		<span class="circle"></span></label> 
+	</div>
+
+	<!-- Albumin -->
+	<div><h4>8) Albumin test result value:</h4>
+		<label class="radioContainer">&nbsp 
+		<input type="radio" name="albumin" value="<= 2.8" onclick="getAlbumin();"/> <= 2.8&nbsp&nbsp&nbsp&nbsp&nbsp 
+		<span class="circle"></span></label>
+
+		<label class="radioContainer">&nbsp
+		<input type="radio" name="albumin" value="2.9" onclick="getAlbumin();"/> 2.9&nbsp&nbsp&nbsp&nbsp&nbsp
+		<span class="circle"></span></label>
+
+		<label class="radioContainer">&nbsp
+		<input type="radio" name="albumin" value="> 2.9" onclick="getAlbumin();"/> > 2.9&nbsp&nbsp&nbsp&nbsp&nbsp   
+		<span class="circle"></span></label>
+	</div>   
+
+	<footer>
+		<div>
+			<input id="clickMe" class="button" type="button" value="Check the result" onclick="display();" />
+		</div>
+		</br>
+		<a href="https://www.webmd.com/hepatitis/default.htm"><strong>Learn more about Hepatitis</strong></a></li>
+	</footer> 
+    
+	<script>
+		var age;
+		var sex;
+		var big;
+		var firm;
+		var spiders;
+		var ascites;
+		var sgot;
+		var albumin;
+		var result;
+		
+		function getAge() {
+			age = document.getElementById("age").value;   
+		}
+    
+		function getSex() {
+			var s = document.getElementsByName("sex");
+			if (s[0].checked) {
+				sex = s[0].value;
+			}
+			else if (s[1].checked) {
+				sex = s[1].value;
+			}
+		}
+
+		function getBig() {
+			var b = document.getElementsByName("big");
+			if (b[0].checked) {
+				big = b[0].value
+			}
+			else if (b[1].checked) {
+				big = b[1].value
+			}
+		}
+
+		function getFirm() {
+			var f = document.getElementsByName("firm");
+			if (f[0].checked) {
+				firm = f[0].value
+			}
+			else if (f[1].checked) {
+				firm = f[1].value
+			}
+		}
+
+		function getSpiders() {
+			var s = document.getElementsByName("spiders");
+			if (s[0].checked) {
+				spiders = s[0].value;
+			}
+			else if (s[1].checked) {
+				spiders = s[1].value;
+			}
+		}
+
+		function getAscites() {
+			var a = document.getElementsByName("ascites");
+			if (a[0].checked) {
+				ascites = a[0].value;
+			}
+			else if (a[1].checked) {
+				ascites = a[1].value;
+			}
+		}
+
+		function getSgot() {
+			var s = document.getElementsByName("sgot");
+			if (s[0].checked) {
+				sgot = s[0].value;
+			}
+			else if (s[1].checked) {
+				sgot = s[1].value;
+			}   
+		}
+
+		function getAlbumin() {
+			var a = document.getElementsByName("albumin");
+			if (a[0].checked) {
+				albumin = a[0].value;
+			}
+			else if (a[1].checked) {
+				albumin = a[1].value;
+			}
+			else if (a[2].checked) {
+				albumin = a[2].value;
+        	}  
+		}
+
+		function display() {
+			if (ascites === "yes") {
+            	if (albumin === "2.9" || albumin === "> 2.9") {
+                	if (firm === "yes") {
+                    	result = "negative";
+                	}
+                	else if (firm === "no"){
+                		if (albumin === "> 2.9") {
+            	        	result = "positive";
+                		}
+             			else if (albumin === "2.9"){
+                    		result = "negative";
+                		}
+                	
+            		}
+            	}
+            	else if (albumin === "<= 2.8"){
+                	result = "positive";
+            	}
+        	}
+        	else if (ascites === "no"){
+        		if (spiders === "yes") {
+            		if (sex === "female") {
+                		if (firm === "yes") {
+                    		if (sgot === "> 101") {
+                        		if (big === "yes") {
+                            		result = "negative";
+	                        	}
+    	                    	else if (big === "no"){
+        	                    	result = "positive";
+            	            	}
+                	    	}
+                    		else if (sgot === "<= 101"){
+                        		result = "negative";
+	                    	}
+    	            	}
+        	        	else if (firm === "no") {
+            	    		if (age === "41-60" ||
+                				age === "61-80" ||
+                				age === "81-100") {
+                    			result = "positive";
+	                		}
+    	            		else if (age === "1-20" ||
+        	        				 age === "21-40"){
+            	        		result = "negative";
+                			}
+                		}
+	            	}
+    	        	else if (sex === "male"){
+        	        	result = "negative";
+            		}
+	        	}
+    	    	else if (spiders === "no"){
+        	    	result = "negative";
+  				}
+  			}
+
+			if (result === "positive") {
+				alert("RESULT: The patient may have Hepatitis.");
+			}
+			else if (result === "negative") {
+				alert("RESULT: The patient may not have Hepatitis.");
+			}
+			else {
+				alert("Please input more data a result.");
+			}
+		}
+    
+	</script> 
+
+</body>
+
+</html>
